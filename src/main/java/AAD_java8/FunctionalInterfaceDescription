@@ -1,0 +1,22 @@
+Functional interfaces provide target types for lambda expressions and method references
+
+
+The term Java functional interface was introduced in Java 8. A functional interface in Java is an interface that contains only a single abstract (unimplemented) method. A functional interface can contain default and static methods which do have an implementation, in addition to the single unimplemented method. 
+
+ Below is another example of a Java functional interface, with implementations of some of the methods:
+
+public interface MyFunctionalInterface2{
+    public void execute();
+
+    public default void print(String text) {
+        System.out.println(text);
+    }
+
+    public static void print(String text, PrintWriter writer) throws IOException {
+        writer.write(text);
+    }
+}
+
+
+--> but again: there is only 1 abstract method, here execute()
+

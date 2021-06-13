@@ -1,0 +1,81 @@
+1. Introduction----------------------
+
+
+
+
+Java Generics were introduced in JDK 5.0 with the aim of reducing bugs and adding an extra layer of abstraction over types.
+
+This article is a quick intro to Generics in Java, the goal behind them and how they can be used to improve the quality of our code.
+Further reading:
+Method References in Java
+A quick and practical overview of method references in Java.
+Read more →
+Retrieve Fields from a Java Class Using Reflection
+Learn how to get the fields of a class using reflection, including inherited fields
+
+
+
+2. The Need for Generics--------------------------------------
+
+
+
+
+
+Let's imagine a scenario where we want to create a list in Java to store Integer; we can be tempted to write:
+
+List list = new LinkedList();
+list.add(new Integer(1)); 
+Integer i = list.iterator().next();
+
+Surprisingly, the compiler will complain about the last line. It doesn't know what data type is returned. The compiler will require an explicit casting:
+freestar
+
+Integer i = (Integer) list.iterator.next();
+
+There is no contract that could guarantee that the return type of the list is an Integer. The defined list could hold any object. We only know that we are retrieving a list by inspecting the context. When looking at types, it can only guarantee that it is an Object, thus requires an explicit cast to ensure that the type is safe.
+
+This cast can be annoying, we know that the data type in this list is an Integer. The cast is also cluttering our code. It can cause type-related runtime errors if a programmer makes a mistake with the explicit casting.
+
+It would be much easier if programmers could express their intention of using specific types and the compiler can ensure the correctness of such type. This is the core idea behind generics.
+
+Let's modify the first line of the previous code snippet to:
+
+List<Integer> list = new LinkedList<>();
+
+By adding the diamond operator <> containing the type, we narrow the specialization of this list only to Integer type i.e. we specify the type that will be held inside the list. The compiler can enforce the type at compile time.
+freestar
+
+In small programs, this might seem like a trivial addition, however, in larger programs, this can add significant robustness and makes the program easier to read.
+
+
+
+another explanation---------------------------
+
+The following block of Java code illustrates a problem that exists when not using generics. First, it declares an ArrayList of type Object. Then, it adds a String to the ArrayList. Finally, it attempts to retrieve the added String and cast it to an Integer—an error in logic, as it is not generally possible to cast an arbitrary string to an integer.
+
+List v = new ArrayList();
+v.add("test"); // A String that cannot be cast to an Integer
+Integer i = (Integer)v.get(0); // Run time error
+
+Although the code is compiled without error, it throws a runtime exception (java.lang.ClassCastException) when executing the third line of code. This type of logic error can be detected during compile time by using generics and is the primary motivation for using them.
+
+The above code fragment can be rewritten using generics as follows:
+
+List<String> v = new ArrayList<String>();
+v.add("test");
+Integer i = (Integer)v.get(0); // (type error)  compilation-time error
+
+
+bounded generics----------------------------------------------
+
+As mentioned before, type parameters can be bounded. Bounded means “restricted“, we can restrict types that can be accepted by a method.
+
+For example, we can specify that a method accepts a type and all its subclasses (upper bound) or a type all its superclasses (lower bound).
+
+To declare an upper bounded type we use the keyword extends after the type followed by the upper bound that we want to use. For example:
+
+public <T extends Number> List<T> fromArrayToList(T[] a) {
+    ...
+}
+
+The keyword extends is used here to mean that the type T extends the upper bound in case of a class or implements an upper bound in case of an interface.
