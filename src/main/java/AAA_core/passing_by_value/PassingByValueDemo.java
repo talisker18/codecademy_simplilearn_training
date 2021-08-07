@@ -26,20 +26,23 @@ public class PassingByValueDemo {
 		changeDogByValue(dogA);
 		
 		//this will print Fifi, because we changed the VALUE "name" of the Dog instance, not the Dog reference itself
-		System.out.println(dogA.getName());
+		System.out.println("print dog name inside main: "+dogA.getName());
 		
 		changeDogByReference(dogA);
-		System.out.println(dogA.getName()); //this will still print Fifi value, because java is passing by value only!!!
+		System.out.println("print dog name inside main: "+dogA.getName()); //this will still print Fifi value, because java is passing by value only!!!
 	}
 	
-	public static void changeDogByValue(Dog dog) { //dog is a copy of dogA. Therefore, both reference variables are pointing to the same object with getName = "Max"
-		dog.setName("Fifi value"); //change the value of the object referenced by reference variable "dogA". this will work, since "dog" is pointing to the same object
+	public static void changeDogByValue(Dog dog) { //dog is NOT a copy of dogA...the method still uses dogA ref var, now called "dog" in this method
+		//Therefore, dogA, or in this method dog, is still pointing to the object "Max"
+		dog.setName("Fifi value"); //change the value of the object referenced by reference variable "dogA" (or "dog"). this will work, since "dog" is the same ref var as "dogA", just with other name
+		System.out.println("print dog name inside method after changing value: "+dog.getName());
 	}
 	
-	public static void changeDogByReference(Dog dog) { //dog is a copy of dogA. Therefore, both reference variables are pointing to the same object with getName = "Fifi value"
-		dog = new Dog(); //since dog is pointing to same object as dogA, this new assignment should work. However this new assignment wont affect the dogA reference since java IS NOT PASSING BY REFERENCE
-		//it will affect only the copy "dog"
-		dog.setName("Fifi Reference"); //this will affect only the copy "dog", not the original dogA
+	public static void changeDogByReference(Dog dog) { //dog is NOT a copy of dogA...the method still uses dogA ref var, now called "dog" in this method
+		//Therefore, dogA, or in this method dog, is pointing to the object "Fifi value"
+		dog = new Dog(); //still when we use dog ref var, we use dogA ref var as well. So actually, the dogA / dog ref var is pointing now to another Dog object
+		dog.setName("Fifi Reference"); //...but since java is not passing by reference, the change on this line wont affect the object on application scope, only on method scope
+		System.out.println("print dog name inside method after changing reference: "+dog.getName());
 	}
 }
 
