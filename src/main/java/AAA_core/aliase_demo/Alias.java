@@ -11,5 +11,13 @@ public class Alias {
 	public int getNum() {
 		return this.num;
 	}
+	
+	public void changeAString(String str) {
+		str = "this string has been changed";
+	}
+	
+	public void changeAliaseDemoObj(AliaseDemo demo) {
+		demo.str = "changed";
+	}
 
 }

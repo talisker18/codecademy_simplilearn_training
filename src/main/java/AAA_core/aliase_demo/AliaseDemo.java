@@ -1,6 +1,8 @@
 package AAA_core.aliase_demo;
 
 public class AliaseDemo {
+	
+	String str;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
