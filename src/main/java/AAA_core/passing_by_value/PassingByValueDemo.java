@@ -20,28 +20,24 @@ public class PassingByValueDemo {
 	
 	public static void main(String[] args) {
 		Dog dogA = new Dog();
-		dogA.setName("Max");
+		dogA.setName("Max"); //dogA reference is pointing to Dog obj with name = Max
+
+		changeDogByValue(dogA); //pass the Dog obj with name Max to the method
 		
-		//now pass the dogA reference variable as argument to the changeDog() method.
-		changeDogByValue(dogA);
-		
-		//this will print Fifi, because we changed the VALUE "name" of the Dog instance, not the Dog reference itself
 		System.out.println("print dog name inside main: "+dogA.getName());
 		
-		changeDogByReference(dogA);
+		changeDogByReference(dogA); //pass the Dog obj with name 'Fifi value' to the method
 		System.out.println("print dog name inside main: "+dogA.getName()); //this will still print Fifi value, because java is passing by value only!!!
 	}
 	
-	public static void changeDogByValue(Dog dog) { //dog is NOT a copy of dogA...the method still uses dogA ref var, now called "dog" in this method
-		//Therefore, dogA, or in this method dog, is still pointing to the object "Max"
-		dog.setName("Fifi value"); //change the value of the object referenced by reference variable "dogA" (or "dog"). this will work, since "dog" is the same ref var as "dogA", just with other name
+	public static void changeDogByValue(Dog dog) { //here, a new reference called 'dog' is made and is pointing now to Dog obj Max. Reference 'dog' is an alias to reference 'dogA'. But, 'dog' ref only lives inside this method
+		dog.setName("Fifi value"); //change the name of Dog obj from Max to Fifi value.
 		System.out.println("print dog name inside method after changing value: "+dog.getName());
 	}
 	
-	public static void changeDogByReference(Dog dog) { //dog is NOT a copy of dogA...the method still uses dogA ref var, now called "dog" in this method
-		//Therefore, dogA, or in this method dog, is pointing to the object "Fifi value"
-		dog = new Dog(); //still when we use dog ref var, we use dogA ref var as well. So actually, the dogA / dog ref var is pointing now to another Dog object
-		dog.setName("Fifi Reference"); //...but since java is not passing by reference, the change on this line wont affect the object on application scope, only on method scope
+	public static void changeDogByReference(Dog dog) { //here, a new reference called 'dog' is made and is pointing now to Dog obj 'Fifi value'. Reference 'dog' is an alias to reference 'dogA'. But, 'dog' ref only lives inside this method
+		dog = new Dog(); //let 'dog' point to another Dog obj. 'dog' and 'dogA' are no longer aliases
+		dog.setName("Fifi Reference"); //this does not affect Dog obj 'Fifi value' because 'dog' is no longer pointing to the Dog obj 'Fifi value'
 		System.out.println("print dog name inside method after changing reference: "+dog.getName());
 	}
 }
