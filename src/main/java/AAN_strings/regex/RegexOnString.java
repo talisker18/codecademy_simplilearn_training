@@ -1,4 +1,4 @@
-package AAN_strings;
+package AAN_strings.regex;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

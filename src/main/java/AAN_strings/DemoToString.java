@@ -1,4 +1,4 @@
-package AAA_core.demo_toString;
+package AAN_strings;
 
 public class DemoToString {
 

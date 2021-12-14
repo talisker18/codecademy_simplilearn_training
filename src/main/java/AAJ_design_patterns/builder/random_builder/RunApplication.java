@@ -1,4 +1,4 @@
-package AAK_builder.random_builder;
+package AAJ_design_patterns.builder.random_builder;
 
 public class RunApplication {
 
