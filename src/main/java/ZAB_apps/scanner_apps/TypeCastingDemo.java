@@ -1,4 +1,4 @@
-package AAM_input_output.scanner_apps;
+package ZAB_apps.scanner_apps;
 
 import java.util.Scanner;
 

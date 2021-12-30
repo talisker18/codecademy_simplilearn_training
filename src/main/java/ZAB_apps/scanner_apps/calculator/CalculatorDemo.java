@@ -1,4 +1,4 @@
-package AAM_input_output.scanner_apps.calculator;
+package ZAB_apps.scanner_apps.calculator;
 
 public class CalculatorDemo {
 	
