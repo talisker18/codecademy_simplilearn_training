@@ -67,6 +67,13 @@ public class GenericClassDemo<T> {
 		}
 	}
 	
+	//but we do not need <T> before void keyword if the method is not static...	
+	public void printArrayFromNonStatic(T[] array) {
+		for(T element: array) {
+			System.out.println(element);
+		}
+	}
+	
 	
 	
 	public static void main(String[] args) {
