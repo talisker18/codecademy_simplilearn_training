@@ -20,7 +20,6 @@ public class ClassPathDemo {
 	
 	public ClassPathDemo() throws IOException {
 		Properties props = new Properties();
-		///FlyAway/target/FlyAway/WEB-INF/classes/application.properties
 		InputStream  in = getClass().getClassLoader().getResourceAsStream("application.properties");
 		props.load(in);
 		in.close();

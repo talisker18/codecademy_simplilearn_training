@@ -1,4 +1,4 @@
-package AAI_data_and_database;
+package AAI_data_and_database.database;
 
 /**
  * see: /codecademy_simplilearn_training/src/main/java/AAA_core/classpath_demo/ClassPathDemo.java

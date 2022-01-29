@@ -1,4 +1,4 @@
-package AAI_data_and_database;
+package AAI_data_and_database.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
