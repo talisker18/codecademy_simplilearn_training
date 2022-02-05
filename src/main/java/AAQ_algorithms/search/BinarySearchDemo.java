@@ -22,15 +22,20 @@ public class BinarySearchDemo {
 
  
 
-    public static int binarySearch(int [] arr, int l, int r, int x){
+    public static int binarySearch(int [] arr, int left, int right, int x){
 
  
+    	//following comments regard input of number 3 as x -> so search 3 in the int []
 
-        if(r >=1){
+    	//array input is int[] arr = {1,2,3,4,5,6,7,8};
+    	
+        if(right >=left){ //if we search e.g. 9 which is not present in array: we will always continue search in right side array because 9 is always bigger than arr[midIndex], so arr[midIndex] > x is always false
+        	//this means that left is always increasing. when last index is reached, left is 7 and right is 7 too (right was always 7). then number 9 is still not found and left is increased to 8
+        	//so in next iteration, left is > right, therefore returning -1
+        	
+        	System.out.println("size of r: "+right);
 
- 
-
-            int midIndex = (l + r) / 2; //first iteration: l = 0, r = 7, midIndex = 3.5 or 3
+            int midIndex = (left + right) / 2; //first iteration: l = 0, r = 7, midIndex = 3.5 or 3
 
  
 
@@ -42,11 +47,11 @@ public class BinarySearchDemo {
 
  
 
-            //element is in left array
+            //if true: element is in left array
 
-            if(arr[midIndex] > x){ //number 3 is smaller than 4, so true
+            if(arr[midIndex] > x){ //number 3 = x is smaller than arr[midIndex] = 4, so true
 
-                return BinarySearchDemo.binarySearch(arr,l,midIndex,x); //first iteration: left = 0 and right 3, so deliver arr with {1,2,3,4}. here we cant use midIndex-1, because in this case we would not find the number at index. so we have to deliver the checked midIndex again
+                return BinarySearchDemo.binarySearch(arr,left,midIndex,x); //first iteration: left = 0 and right 3, so deliver arr with {1,2,3,4}. here we cant use midIndex-1, because in this case we would not find the number at index 0. so we have to deliver the checked midIndex again
 
             }
 
@@ -54,7 +59,7 @@ public class BinarySearchDemo {
 
             //number is in right array
 
-            return BinarySearchDemo.binarySearch(arr,midIndex+1,arr.length-1,x); //midIndex = index 3, so start right array with m+1 and end it with arr.length-1 (last index)
+            return BinarySearchDemo.binarySearch(arr,midIndex+1,arr.length-1,x); //midIndex = index 3, so start right array with midIndex+1 and end it with arr.length-1 (last index) -> so in 1st iteration its midIndex+1 = 4
 
  
 
@@ -62,6 +67,7 @@ public class BinarySearchDemo {
 
  
 
+        //number not found
         return -1;
 
     }
@@ -74,7 +80,7 @@ public class BinarySearchDemo {
 
         int size = arr.length; //8
 
-        int index= BinarySearchDemo.binarySearch(arr,0,size-1,8);
+        int index= BinarySearchDemo.binarySearch(arr,0,size-1,9);
 
         System.out.println(index);
 

@@ -112,9 +112,7 @@ class GFG {
 
      // inside main() method
 
-     OuterClass.NestedStaticClass printer
-
-             = new OuterClass.NestedStaticClass();
+     OuterClass.NestedStaticClass printer = new OuterClass.NestedStaticClass();
 
 
 

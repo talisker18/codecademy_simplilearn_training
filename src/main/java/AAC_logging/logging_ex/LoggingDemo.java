@@ -43,9 +43,11 @@ public class LoggingDemo {
 		
 		System.out.println(logger.getName());
 		
+		/**this will be logged **/
 		logger.log(Level.INFO,"INFO test"); //at this point, the logger does not have any handler. so the handler of the root logger is used, and the root logger has per default only a console logger
 		
 		//console handler of root logger only logs INFO and above
+		/**this wont be logged **/
 		logger.log(Level.FINE,"FINE test");
 		
 		System.out.println("resetting the logger config");
@@ -62,7 +64,9 @@ public class LoggingDemo {
 		logger.addHandler(ch);
 		
 		//since the handler has severe, only severe will be logged, it doesnt matter that the logger level is ALL
+		/**this will be logged **/
 		logger.log(Level.SEVERE,"test severe");
+		/**this wont be logged **/
 		logger.log(Level.WARNING,"test warning");
 		
 		System.out.println("change handler level to INFO. all level above INFO will be printed too");

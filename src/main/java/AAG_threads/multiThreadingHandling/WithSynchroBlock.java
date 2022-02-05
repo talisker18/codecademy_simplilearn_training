@@ -34,6 +34,7 @@ class Resource3 implements Runnable{
 		//non synchro
 		this.name = this.name+str;
 		System.out.println("string modified by "+Thread.currentThread().getName());
+		System.out.println(this.name);
 		
 		synchronized (this) { //call synchro block for THIS obj
 			count++;
