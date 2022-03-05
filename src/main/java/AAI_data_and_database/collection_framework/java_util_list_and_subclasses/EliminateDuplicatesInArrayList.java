@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class EliminateDuplicatesInArrayList {
 
@@ -15,6 +17,8 @@ public class EliminateDuplicatesInArrayList {
 		List<String> listWithoutDuplicates = new ArrayList<String>(new HashSet<String>(listWithDuplicates));
 		
 		System.out.println(listWithoutDuplicates);
+		
+		Map<String,String> map = new ConcurrentHashMap<String,String>();
 
 	}
 

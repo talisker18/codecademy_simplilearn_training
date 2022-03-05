@@ -29,19 +29,24 @@ This means that the methods can be accessed by only one thread at a time, while 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Collection<Integer> syncCollection = Collections.synchronizedCollection(new ArrayList<>());
+		
 		Thread thread1 = new Thread(() -> syncCollection.addAll(Arrays.asList(1, 2, 3, 4, 5, 6)));
 		Thread thread2 = new Thread(() -> syncCollection.addAll(Arrays.asList(7, 8, 9, 10, 11, 12)));
 		thread1.start();
 		thread2.start();
+		
+		
+		//join the threads so the iterator will print all values. if not joining, maybe not all values will be printed
 		try {
 			thread1.join();
 			thread2.join();
+
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		Iterator<Integer> iterator=syncCollection.iterator();
+		Iterator <Integer> iterator=syncCollection.iterator();
 		
 		while(iterator.hasNext()) {
 			System.out.println(iterator.next()); //entweder kommen zuerst alle int von thread2 oder zuerst alle int von thread1...jedoch nie durcheinander

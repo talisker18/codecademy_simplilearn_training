@@ -13,3 +13,7 @@
 select left(name,1) from employee where id=1;
 
 ---will print j
+
+---we can also use this in where clause
+
+select * from employee where left(name,1) = j;

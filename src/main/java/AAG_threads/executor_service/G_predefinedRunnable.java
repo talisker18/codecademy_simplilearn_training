@@ -14,6 +14,7 @@ public class G_predefinedRunnable implements Runnable{
 		G_predefinedRunnable runner = new G_predefinedRunnable();
 		
 		ExecutorService ex = Executors.newFixedThreadPool(10);
+		//start multiple threads in parallel
 		ex.execute(runner); //execute one thread
 		ex.execute(runner); //execute one thread
 		ex.execute(runner); //execute one thread

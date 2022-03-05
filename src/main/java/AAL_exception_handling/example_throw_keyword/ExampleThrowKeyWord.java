@@ -1,5 +1,7 @@
 package AAL_exception_handling.example_throw_keyword;
 
+//see also exception handling with Callable: src/main/java/AAG_threads/callable/CallableExample.java
+
 class VotingSystem{
 	static void validate(int age) throws ArithmeticException{
 		

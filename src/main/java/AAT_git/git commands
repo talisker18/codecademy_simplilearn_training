@@ -1,0 +1,500 @@
+------------git config levels
+
+
+git config --system
+
+git config --global
+
+git config --local
+
+
+--------------configuring git
+
+configuring git is mostly done at global level, because they correspond to user level settings for all repos
+
+define global username and email
+
+	git config --global user.name "joel"
+	git config --global user.email "hjoel87@gmx.ch"
+	
+list config
+	git config --list
+	
+get username or email
+	git config --global user.name
+	git config --global user.email
+	
+where is global config stored
+	C:\Users\chgix\.gitconfig
+	
+	
+-----------create repos
+
+create empty dir
+	mkdir test2
+	cd test2
+	
+convert dir into repos
+	git init
+	git status
+	ls -lrt -> should return 0 because git files are hidden
+	ls -la -> shows hidden files, e.g. .git file
+	pwd -> show current dir
+	
+	
+------------------git workflow
+
+three stage workflow
+	working dir
+	staging area
+	local repos
+	
+see changes of a file
+	git log
+
+demo:
+	create file
+		touch index.html
+	check status
+		git status
+			it should show untracked file we have created
+	track the file -> moving to staging area
+		git add .
+	check status again
+		it should be staged now
+	commit changes
+		git commit -m "commit"
+		check status
+			git status
+	change the file index.html (overwriting file)
+		echo "<html>    </html>" >> index.html
+		git status -> it shows that there are changes to be committed
+			restage the file
+				git add index.html
+			commit
+				git commit -m "commit2"
+	view the all the commits in a history, INCL COMMIT IDS
+		git log
+		git log --oneline
+		
+----------track changes between stages
+
+demo:
+	git status
+	git diff index.html
+		no difference between working dir (first level) and staging area (second level)
+	make change
+		open file with e.g. text editor vi
+			vi index.html
+		make changes
+		save changes
+			press ESC, type :w and hit Enter
+		exit vi
+			press ESC, type :x and hit Enter
+	git status
+		it will show modified file
+	show difference between the changed file in work dir and the last staged version of this file
+		git diff index.html
+	stage the differences
+		git add index.html
+	see difference between staging area (second level) and local repo (third level)
+		git diff --staged index.html
+			or (git diff --staged) for all files
+	see difference between staging area (second level) and local repo (third level) regarding LAST commit
+		git diff --staged HEAD index.html
+		
+	see difference between staging area (second level) and local repo (third level) regarding LAST commit -> indicating the HEAD counter
+		git diff --staged HEAD~1 index.html
+		
+	see difference between staging area (second level) and local repo (third level) regarding SECOND LAST commit -> indicating the HEAD counter
+		git diff --staged HEAD~2 index.html
+		
+	commit changes
+	confirm that there are no changes
+		git diff --staged HEAD
+	see commit history
+		git log --oneline
+	see changes of a specific commit by commit id
+		git diff 7db50dc
+		
+-------------reverting commits -> tbd revert single commit between commit history??
+	demo:
+		first create new file and change it and then commit it
+			touch fileA.txt
+			vi fileA.txt
+				do changes and save
+			see content of this file
+				cat fileA.txt
+				
+		do some more changes, e.g. other 3 lines. every change should be a new commit so we will have 4 commits
+		see each time differences with git diff fileA.txt or git diff --staged fileA.txt
+		
+		
+		demo, how to checkout a version of the file and commit this version
+			checkout to the second last commit, this should show only Line1 and Line2 in the file
+				git checkout HEAD~1 fileA.txt
+				check if there are as expected only 2 lines of text
+					cat fileA.txt
+				check status of this version (HEAD~1) of the file
+					git status
+						it will indicate that there are changes to commit
+					commit the new version
+						commits are reverted!
+						
+		demo, another way to do it by commit id
+			checkout current version
+				git checkout HEAD fileA.txt
+			we want to revert commit 2 and 3 so that there is only the Line1
+				git log --oneline
+				copy commit id of first commit
+				checkout this version by commit id
+					git checkout ba8e906 fileA.txt
+				cat fileA.txt
+					should show only the Line1
+				git status
+					shows that there is something to commit
+				git commit -m "revert commit 2 and 3"
+					commit 2 and 3 are reverted, check this
+						cat fileA.txt
+					check it also with 
+						git log --oneline fileA.txt
+
+-------------delete files from work dir or staging area
+
+demo
+	check how many files are in working dir
+		ls -lrt
+	check the files in the staging area
+		git ls-files --stage
+	delete one file, e.g. fileA.txt, from working dir AND staging area
+		git rm fileA.txt
+	if u want to delete only from staging area, use this
+		git rm --cached fileA.txt
+		in this case if u do git status, it will show that fileA.txt is untracked because we removed it from staging area only
+		check if the file is deleted from staging area
+			git ls-files --stage
+		
+	once we are done with deleting, commit the changes to update the local repo as well
+	u will see the deleting commit also in git history. so u could revert that deleting commit anytime because we have the git history in the local repo
+		git log --oneline
+			copy the commit id before the commit of deleting file
+		checkout version
+			git checkout 111dc74 fileA.txt
+			
+			
+-------------------------unstage a file
+git restore --stage fileA.txt
+
+
+
+
+------------------------ingoring files in git
+
+we do not want to track these files
+
+u can ignore by file name or even file name patterns
+
+demo
+	current working dir has 3 files
+	first add all files to staging area if not done yet
+		
+	open the .gitignore file
+		vi .gitignore
+			add fileC.txt and save/exit
+	git status
+		.gitingore file can be added and committed now
+	git add .gitignore
+	git commit -m "added .gitignore file"
+	create new file with name fileC.txt
+	create new file with name fileD.txt
+	git status
+		only fileD.txt is detected to add to staging area because fileC.txt is ignored
+		
+	further ignoring patterns are
+		*.txt
+			ignore all files with .txt
+			logs/
+				ignore all files in log folder
+			...
+			
+	
+	
+----------------rename files in git
+git mv <filename> <new filename>
+	mv stands for UNIX move
+
+
+then add and commit renaming
+
+//////////////////////github and remote repos (origin)
+
+-------------create project on github using https; push local to github
+
+locally
+	create new git repo and add files
+		mkdir github_demo
+		cd github_demo
+		git init
+		add a file and commit it
+		
+github
+	create repo named github_demo
+	copy link to clone
+	
+locally
+	git remote add origin https://github.com/talisker18/github_demo.git
+	git remote -v
+		show remotes (fetch and push)
+	git push origin master
+		changes are pushed to remote repo
+		also, a master branch was created on remote repo
+
+
+-------------create project on github using ssh (create repo without user and password but with ssh key); push local to github
+
+again prepare locally repo
+
+generate ssh key
+	command: ssh-keygen
+	hit enter. this will create a key in the mentioned dir
+	leave out passphrase
+	copy path to the generated key
+		/c/Users/chgix/.ssh/id_rsa.pub
+	cat /c/Users/chgix/.ssh/id_rsa.pub
+	copy the shown public key
+		ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDAoWS4KvXMz6DADeg2NN0bVxYwe/4lKON+6qjjLysQBH4+XVr1fGzTFQ6TgLs19XjGZXkIAx7bXk7tg7c1eWv8McPSuTOJ/M2UDK9pJy0dOb7FN6KOVpbA/gybbJ5t8RlG2XrX4FWw9X3gdNZ0W3nb9sSQuWQpzrM86Jsi/E85nI7yS59K5ZeugooNebQdAHxzjamCNxnH78j2JKI+kr+mNoZ7FcWYrYvWzfyFJTsq+omIL/TS0XARVQf2pUchi9NKPfgcotz4dD7eqcYU4z+5gY2nlLjHEDNRjG3DaYcyinPY3LOnyaifBDn2naN5bT2wUQSNlfemLmIwz6np7hLbmfsK+CDVHlEktBBomlQO/twg/MxHAErgwyvFVHsYlQKS2FAZwEUkMmL5GSzke+7EAfMUrWlJKVh9970Svk5iHPR9WLQhWYfCXyq42TnNyPo1MEzATzz1DnPIK5rJKwgnWXBcOW/hqhsi3aOiTB314ymqLEd/mUVOB5fTV2uxw68= chgix@DESKTOP-O9MDKN2
+		
+
+on github
+	go to settings
+	SSH and GPG keys
+	New SSH key
+	enter a title for the key
+	paste the public key
+	add key
+	
+	create new repo on github
+	switch to ssh and copy command
+	
+locally
+	git remote add origin git@github.com:talisker18/github_demo_ssh.git
+	git remote -v
+		show remotes (fetch and push)
+	git push origin master
+		this time we used the ssh key to push to remotre repo
+		
+-----------pull commit from github into local repo
+
+on github, change read me file and commit
+
+locally
+	git pull origin master
+	git status -> no changes
+	git log --oneline
+		commit on remote repo is already in commit history and therefore in your local repo
+		
+
+--------------collaborating local and remote repo
+
+on github, change a file and commit
+
+locally
+	pull changes
+	make changes locally, commit
+	git push origin master
+	
+-------managin multiple commits of same file
+
+now, changes on remote and local are done in same time -> merge!
+
+on github, change file and commit
+
+locally
+	change same file and commit / push
+		there will be conflict
+		pull first remote changes
+		in good case, the merge can be done automatically, but here:
+		merge conflict, see log:
+			remote: Enumerating objects: 5, done.
+			remote: Counting objects: 100% (5/5), done.
+			remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+			Unpacking objects: 100% (3/3), 655 bytes | 23.00 KiB/s, done.
+			From github.com:talisker18/github_demo_ssh
+			 * branch            master     -> FETCH_HEAD
+			   b5091e9..dd66f05  master     -> origin/master
+			Auto-merging readme.txt
+			CONFLICT (content): Merge conflict in readme.txt
+			Automatic merge failed; fix conflicts and then commit the result.
+		
+		resolve conflict and push again
+		
+		DONE
+ 
+------------------merging
+
+same as before
+
+...
+
+git push origin master
+pull
+
+when automatic merge failed:
+	correct file
+		the part after HEAD is local change, the part after ======== is remote change
+
+
+--------------issue tracking in github
+
+on github, click issues tab
+
+
+
+------------------branching
+
+git branch
+	list all LOCAL branches. the branch with * is the active branch
+	
+git branch -r
+	list only remote tracking branches
+
+git branch -a
+	list both remote and local branches
+	
+git branch <branch name>
+	create new branch from current active branch
+
+git checkout <branch name>
+
+git merge <branch name>
+	merge that branch into current
+	
+git diff <branch1>..<branch2>
+	difference between branches
+	
+// delete branch locally
+git branch -d localBranchName
+
+// delete branch remotely
+git push origin --delete remoteBranchName
+	
+demo
+	
+	
+---------------types of merges in git
+	fast forward merge
+		when u merge into a branch
+		typically used to fix bugs
+		git just moves the label of the latest master commit to the commit of the feature branch which we have merged back into master
+	recursive merge
+		when different merge bases are envolved
+		it used when following occurs
+			commit1 done in master
+			commit2 done in master
+			feature branch madek from master at commit2
+			in feature branch, commit3 and 4 are made
+			in master branch, commit5 and 6 are made
+			merge feature branch into master branch
+			since commit2 is the parent master version of feature branch but master has already commit5 and 6 versions, a recursive merge has to be done
+				with recursive merge, a new commit is created which collects all changes from feature branch, and then master branch will be updated with this new commit
+				
+----------------stashing
+
+git stash
+
+	revert to the last commit
+	
+	
+	demo
+		we are in branch my-branch
+		git status shows a modified file with name fileA. but we get interrupted and have to switch to master branch
+			when trying to switch to master, an error occurs because we havent committed the modified file of my-branch
+				we can now either commit first or stash the modified file
+				git stash save "stash changes in my-branch"
+					this will revert the changes of fileA for the moment and pointer points to the last commit. on this level, commit history is same as in master....therefore we can switch now to master
+					
+		git stash list
+			list all stashed changes
+			
+		atfer work in master is done, switch back to my-branch
+		
+		git stash apply
+			then add and commit....the stashed changes were applied now in my-branch
+			
+			we can also apply the same stash to the master branch...but we will get merge conflict and have to resolve that manually
+			also use here git stash apply
+			
+		git stash show
+			show stashed file
+		
+		git stash clear
+			clear the stash list
+			
+
+---------------------rebase
+
+rebasing refers to the process of moving a branch to a different commit
+
+i am working in feature-branch1 and i have done 2 commits
+
+in master branch, a new commit was made by another dev. i need the content of that commit as well in my feature-branch1
+
+-->rebase the feature-branch1 to the latest commit in master
+	git rebase master
+	
+	
+demo
+	master branch has following commits
+		f32a
+		af38
+		
+	feature-branch1 has following commits
+		915e
+		6ef5
+		f32a
+		af38
+		
+	as we see, feature-branch1 has the parent of master commit f32a
+	
+	now do a commit on master
+		now the log history of master looks like this
+			d50f
+			f32a
+			af38
+		
+	now we need that commit from master with d50f as well in feature-branch1
+	
+	git checkout feature-branch1
+	git rebase master
+	git log --online
+		the 2 commits of feature branch1, namely 6ef5 and 915e, are rebased into 2 new commits with id 5e0c and d861
+		
+		new log history, see the new commit ids
+			d861 -> this was the original commit of feautre branch 1, namely 915e
+			5e0c -> this was the original commit of feautre branch 1, namely 6ef5
+			d50f -> content from master
+			f32a
+			af38
+			
+-----------------git cloning
+
+cloning a local repo into another repo
+	git clone github_demo_ssh clonedGithub_demo_ssh
+	 important: for this you have to be in the parent folder of the project u want to clone, e.g. C:\Users\chgix -> where project folder github_demo_ssh is
+	 
+	by default, locally there will be only the branch we have cloned from, e.g. feature1 branch. master branch is still missing when u do git branch, but it appreas when u do git branch -a (incl remote branches)
+		use git branch -a and u will see the master branch
+		then: git checkout master
+			master branch is now also locally available
+			
+cloning from github into eclipse
+	copy clone link
+	in git bash
+		go to the parent folder where you want to add the project
+		git clone <url>
+	in eclipse: create new java project with same name as the project from github
+	import filesystem into that project
+		choose the cloned project. eclipse automatically recognizes that this is a github project
+
+	 
+	 

@@ -13,3 +13,5 @@ select year(dob) from employee where id=1;
 select month(dob) from employee where id=1;
 
 select round(datediff(now(),dob)/365) from employee where id=1; ---get age (depending on DBMS)
+
+

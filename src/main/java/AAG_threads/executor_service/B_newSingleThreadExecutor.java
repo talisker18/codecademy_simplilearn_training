@@ -11,7 +11,7 @@ public class B_newSingleThreadExecutor {
 		ExecutorService ex = Executors.newSingleThreadExecutor();
 		
 		//execute 3 times. since there is only 1 thread, the same thread is visible in the sysout
-		//and since its only 1 thread, the tasks are not done in parallel (just run the program and see the output)
+		//and since its only 1 thread, the tasks are NOT done in parallel (just run the program and see the output)
 		
 		ex.execute(new Runnable() {
 

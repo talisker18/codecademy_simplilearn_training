@@ -1,0 +1,1 @@
+update public.manual_task_resource_reference set reference = replace(reference,'cfap01','cfap02');
