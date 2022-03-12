@@ -15,7 +15,11 @@ package AAQ_algorithms.search;
 */
 
  
-
+/*
+ * 
+ * see also: src/main/java/AAI_data_and_database/collection_framework/java_util_list_and_subclasses/SearchDemo.java
+ * 
+ * */
  
 
 public class BinarySearchDemo {
