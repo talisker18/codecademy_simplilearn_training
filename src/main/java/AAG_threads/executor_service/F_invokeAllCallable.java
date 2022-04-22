@@ -17,7 +17,7 @@ import java.util.concurrent.Future;
 Keep in mind that a task might finish due to an exception, so it may not have "succeeded". There is no way on a Future to tell the difference. 
  * 
  * 
- * when calling invokeAll(), the call() methods of Callable are executed NOT in parallel but one at a time, e.g. task1 is finished, then task3 and then task2 --> run program and see output
+ * when calling invokeAll(), the call() methods of Callable are executed NOT in parallel but one at a time (because we are using 'Executors.newSingleThreadExecutor();'), e.g. task1 is finished, then task3 and then task2 --> run program and see output
  * 
  * */
 
