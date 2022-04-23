@@ -47,6 +47,11 @@ public class AnonymousClassDemo {
 		//};
 		
 		Person p4 = new Person(){};
+		
+		//following will not work because String class is final and immutable
+		String str = new String() {
+			
+		};
 	}
 }
 
