@@ -1,0 +1,28 @@
+----------------read json string and convert to org.json.simple.JSONArray or org.json.simple.JSONObject;
+
+//use this method if you expect a json object -> {...}
+    public static Object readStringAndBuildObject(String string) {
+        JSONParser parser = new JSONParser();
+        JSONObject jsonObject=new JSONObject();
+        try {
+            jsonObject = (JSONObject) parser.parse(string);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return jsonObject;
+    }
+
+    //use this method if you expect a json array -> [...]
+    public static Object readStringAndBuildArray(String string) {
+        JSONParser parser = new JSONParser();
+        JSONArray jsonArray=new JSONArray();
+        try {
+            jsonArray = (JSONArray) parser.parse(string);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return jsonArray;
+    }
+	

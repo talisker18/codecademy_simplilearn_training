@@ -1,4 +1,4 @@
-package AAA_core.classes.inner_classes;
+package AAA_core.classes.inner_classes.real_life_example;
 
 import java.io.BufferedReader;
 import java.io.IOException;

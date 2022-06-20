@@ -1,4 +1,4 @@
-package ch.admin.bazg.boga.testhelper.datahelper;
+package AAA_core.classes.inner_classes.real_life_example;
 
 import ch.admin.bazg.boga.domain.inspection_decision.InspectionDecision;
 import ch.admin.bazg.boga.domain.inspection_decision.InspectionDecisionState;

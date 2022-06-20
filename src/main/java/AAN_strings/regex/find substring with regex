@@ -1,0 +1,47 @@
+ If I have a string like this:
+
+FOO[BAR]
+
+I need a generic way to get the "BAR" string out of the string so that no matter what string is between the square brackets it would be able to get the string.
+
+e.g.
+
+FOO[DOG] = DOG
+
+FOO[CAT] = CAT
+
+ 
+
+ 
+
+ 
+-------------------------------
+ 
+
+ 
+
+
+You should be able to use non-greedy quantifiers, specifically *?. You're going to probably want the following:
+
+
+Pattern MY_PATTERN = Pattern.compile("\\[(.*?)\\]");
+
+
+
+
+This will give you a pattern that will match your string and put the text within the square brackets in the first group. Have a look at the Pattern API Documentation for more information.
+
+To extract the string, you could use something like the following:
+
+
+
+
+Matcher m = MY_PATTERN.matcher("FOO[BAR]");
+
+while (m.find()) {
+
+    String s = m.group(1);
+
+    // s now contains "BAR"
+
+}

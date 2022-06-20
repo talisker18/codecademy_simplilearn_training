@@ -1,4 +1,4 @@
-package AAP_xml_and_json.json;
+package AAI_data_and_database.json_xml.json;
 
 import java.io.BufferedReader;
 import java.io.File;

@@ -376,7 +376,24 @@ git diff <branch1>..<branch2>
 git branch -d localBranchName
 
 // delete branch remotely
-git push origin --delete remoteBranchName
+	git push origin --delete remoteBranchName
+
+	//further example
+		git branch -a
+		output:
+			# *master
+			
+			#  test
+			
+			#  remote/origin/master
+			
+			#  remote/origin/test
+			
+		git push origin --delete test
+		output:
+			# To <URL of your repository>.git
+			
+			#  - [deleted]         test
 	
 demo
 	

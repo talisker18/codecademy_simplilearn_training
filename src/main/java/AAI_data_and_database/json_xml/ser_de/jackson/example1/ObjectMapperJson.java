@@ -1,4 +1,4 @@
-package AAP_xml_and_json.jackson;
+package AAI_data_and_database.json_xml.ser_de.jackson.example1;
 
 import java.io.File;
 import java.io.IOException;
