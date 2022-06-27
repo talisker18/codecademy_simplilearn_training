@@ -45,6 +45,11 @@ public class DateFormatterAndComparisonDemo {
 		format = new SimpleDateFormat("dd.MM.yyyy");
 		String dateInput = format.format(Calendar.getInstance().getTime()); //getTime returns now
 		
+		//convert today into this format : 27. Juni 2022 (german month text)
+		format = new SimpleDateFormat("dd. MMMM yyyy", Locale.GERMAN); //using MMMM to get the months text instead of number.
+		String todayAsString = format.format(Calendar.getInstance().getTime());
+		
+		
 	}
 
 }
