@@ -3,6 +3,7 @@ package ZAA_misc;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Calendar;
 
 public class DateFormatterAndComparisonDemo {
 
@@ -39,6 +40,11 @@ public class DateFormatterAndComparisonDemo {
 		
 		//convert date to string
 		String str = format.format(date2);
+		
+		//convert today to String
+		format = new SimpleDateFormat("dd.MM.yyyy");
+		String dateInput = format.format(Calendar.getInstance().getTime()); //getTime returns now
+		
 	}
 
 }
