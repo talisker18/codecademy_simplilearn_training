@@ -1,5 +1,11 @@
 package AAA_core.conventions;
 
+/*
+ * see also: /codecademy_simplilearn_training/src/main/java/AAA_core/wrapper_classes_casting/ParseStringToPrimitiveDatatype.java
+ * 
+ * 
+ * */
+
 public class RepresentationOfNumbers {
 
 	

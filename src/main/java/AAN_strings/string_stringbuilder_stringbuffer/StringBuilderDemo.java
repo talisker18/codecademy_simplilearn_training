@@ -1,4 +1,4 @@
-package AAN_strings;
+package AAN_strings.string_stringbuilder_stringbuffer;
 
 public class StringBuilderDemo {
 

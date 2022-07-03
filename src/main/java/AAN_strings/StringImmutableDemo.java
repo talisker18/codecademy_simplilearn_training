@@ -1,5 +1,7 @@
 package AAN_strings;
 
+/*see also: /codecademy_simplilearn_training/src/main/java/AAN_strings/string_stringbuilder_stringbuffer/PerformanceDemo.java*/
+
 public class StringImmutableDemo {
 	
 	public static void main(String[] args) {

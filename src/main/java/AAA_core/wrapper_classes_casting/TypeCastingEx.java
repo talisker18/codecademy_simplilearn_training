@@ -1,4 +1,4 @@
-package AAA_core.casting_practice;
+package AAA_core.wrapper_classes_casting;
 
 /**
  * type casting is the casting of primitive data types
