@@ -72,3 +72,29 @@ Paste your key into the "Key" field.
 Click Add SSH key. 
 
 If prompted, confirm your GitHub password. 
+
+
+3. commit local changes to github repo
+	if you try this you will get following error: 
+
+		$ git commit -m "."
+		Author identity unknown
+		
+		*** Please tell me who you are.
+		
+		Run
+		
+		  git config --global user.email "you@example.com"
+		  git config --global user.name "Your Name"
+		
+		to set your account's default identity.
+		Omit --global to set the identity only in this repository.
+		
+		fatal: unable to auto-detect email address (got 'talis@LAPTOP-6PIMU9HN.(none)')
+		
+		
+to be able to make commits, you have to set the same email in the local git config as the email from your github account
+	 git config --global user.email "hjoel87@gmx.ch"
+	 
+then you will be able to commit changes
+	
