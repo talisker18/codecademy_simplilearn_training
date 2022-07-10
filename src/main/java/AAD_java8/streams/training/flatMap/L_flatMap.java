@@ -13,7 +13,7 @@ import java.util.stream.Stream;
  * 
  * why use flat?
  * 
- * It’s challenging to process a Stream containing more than one level, 
+ * Itï¿½s challenging to process a Stream containing more than one level, 
  * like Stream<String[]> or Stream<List<LineItem>> or Stream<Stream<String>>. 
  * 
  * And we flat the 2 levels Stream into one level, like Stream<String> or Stream<LineItem>, 

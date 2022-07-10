@@ -26,13 +26,13 @@ public class App {
 
         // hmm....List of Sets...how to process?
 
-        Set<String> set = list.stream() //return Stream<Developer> ---> is equal to: Stream.of(list.toArray(new Developer[list.size()]))
+        Set<String> setOfBooks = list.stream() //return Stream<Developer> ---> is equal to: Stream.of(list.toArray(new Developer[list.size()]))
                         .map(dev -> dev.getBooks())   //  Stream<Set<String>> --->for each dev get his books as Set<String>  --> we have to use map before flatMap because we need Set<String> at the end
                         .flatMap(booksOfDev -> booksOfDev.stream())                           //  Stream<String> --->after map we got a Stream containing Set<String> sets...we flaten this stream by picking all Strings from each single Set
                         .filter(book -> !book.toLowerCase().contains("python"))   //  filter books NOT containing python
                         .collect(Collectors.toSet());                       //  remove duplicated
 
-        set.forEach(System.out::println); 
+        setOfBooks.forEach(System.out::println); 
         
         System.out.println("-------------------------");
         
@@ -46,9 +46,9 @@ public class App {
         
         streamOfStrings = streamOfStrings.filter(book -> !book.toLowerCase().contains("python"));
         
-        set = streamOfStrings.collect(Collectors.toSet());
+        setOfBooks = streamOfStrings.collect(Collectors.toSet());
         
-        set.forEach(System.out::println); 
+        setOfBooks.forEach(System.out::println); 
 	}
 
 }
