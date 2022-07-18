@@ -11,12 +11,12 @@ import java.util.stream.Stream;
 
 /**
  * 
- * Mit der Version 8 wird die Klasse java.util.Optional<T> eingeführt und mit Java 9 ergänzt. 
- * Sie stellt Methoden bereit, um den oft lästigen und aufgeblähten Code produzierenden Umgang mit 
+ * Mit der Version 8 wird die Klasse java.util.Optional<T> eingefÃ¼hrt und mit Java 9 ergÃ¤nzt. 
+ * Sie stellt Methoden bereit, um den oft lÃ¤stigen und aufgeblÃ¤hten Code produzierenden Umgang mit 
  * null-Werten deutlich zu vereinfachen. 
  * 
- * Ein Optional ist eine Objekt, das man sich als Datenbehälter vorstellen kann, der entweder einen 
- * Wert enthält oder leer (empty) ist. Leer ist hier auch nicht gleichbedeutend mit null!
+ * Ein Optional ist eine Objekt, das man sich als DatenbehÃ¤lter vorstellen kann, der entweder einen 
+ * Wert enthÃ¤lt oder leer (empty) ist. Leer ist hier auch nicht gleichbedeutend mit null!
  * 
  * */
 
@@ -24,17 +24,24 @@ public class OptionalDemo {
 	public static void main(String[] args) {
 		Optional<String> oe = Optional.empty();                // leeres Optional
 		//System.out.println(oe.get());                          // NoSuchElementException
-		Optional<String> os = Optional.of("Hallo Welt!");      // enthält den String "Hallo Welt!"
+		Optional<String> os = Optional.of("Hallo Welt!");      // enthÃ¤lt den String "Hallo Welt!"
 		System.out.println(os.get());    // Hallo Welt
 		
-		//Optional<String> on = Optional.of(null);             // NullPointerException
+		Optional<String> on = Optional.of(null);             // NullPointerException
+		
+		//.of vs .ofNullable demo
+		//Optional<String> optional = Optional.ofNullable(null); // Optional.ofNullable(null) -> same as Optional.empty();
+		String s1 = null;
+		//String s2 = Optional.of(s1).orElse("other string"); // NullPointerException
+		String s2 = Optional.ofNullable(s1).orElse("other string"); //everything fine. object of s2 will hold 'other string'
+		
 		Optional<String> onb = Optional.ofNullable(null);    // leeres Optional (null)
 		//System.out.println(onb.get());    // NoSuchElementException
 		
 		/**
 		 * verhindern der exceptions:
 		 * 
-		 * es kann durch isPresent() überprüft werden, ob ein Optional leer ist.
+		 * es kann durch isPresent() Ã¼berprÃ¼ft werden, ob ein Optional leer ist.
 			Ab Java 11 kann dies auch durch isEmpty() erfolgen. Die Methode funktioniert umgekehrt. 
 			Sie liefert true, wenn das Optional leer ist.
 		 * 
@@ -51,13 +58,13 @@ public class OptionalDemo {
 		//System.out.println("using of instead of ofNullable: "+onb2.isEmpty());
 		
 		/**
-		 * Allerdings bieten sich zur Überprüfung hier oft andere Vorgehensweisen an, da der boolsche Rückgabewert 
-		 * ggf. wieder umständlich validiert werden muss.
+		 * Allerdings bieten sich zur ÃœberprÃ¼fung hier oft andere Vorgehensweisen an, da der boolsche RÃ¼ckgabewert 
+		 * ggf. wieder umstÃ¤ndlich validiert werden muss.
 		 * 
-			Stattdessen könnte z.B. vielmehr ein Default-Wert angegeben werden, der bei leerem Objekt greift. 
-			Die Methoden or(), orElse() und orElseGet() ermöglichen das.
-			Die Unterschiede zwischen den Methoden sind klein aber fein und müssen besonders bei zeitkritischen 
-			Anwendungen berücksichtigt werden. orElse() erwartet ein Objekt als Parameter und gibt dies zurück, 
+			Stattdessen kÃ¶nnte z.B. vielmehr ein Default-Wert angegeben werden, der bei leerem Objekt greift. 
+			Die Methoden or(), orElse() und orElseGet() ermÃ¶glichen das.
+			Die Unterschiede zwischen den Methoden sind klein aber fein und mÃ¼ssen besonders bei zeitkritischen 
+			Anwendungen berÃ¼cksichtigt werden. orElse() erwartet ein Objekt als Parameter und gibt dies zurÃ¼ck, 
 			falls das Optional leer sein sollte. Das Objekt wird somit in jedem Falle gebildet und erst danach 
 			entscheidet sich, ob es weiter verarbeitet wird oder nicht. 
 		 * 
@@ -68,10 +75,10 @@ public class OptionalDemo {
 		
 		/**
 		 * orElseGet() erwartet einen Supplier als Parameter, dessen Methode einen Wert liefert. D.h., dass im Falle 
-		 * eines nicht leeren Optional, die Methode des Suppliers nicht aufgerufen wird. Ein ggf. zurückzugebendes 
+		 * eines nicht leeren Optional, die Methode des Suppliers nicht aufgerufen wird. Ein ggf. zurÃ¼ckzugebendes 
 		 * Objekt muss somit gar nicht erst gebildet werden.
 		 * 
-		Eine Ergänzung in Java 9 ist die Methode or(), die ebenfalls einen Supplier erwartet. Die Rückgabe besteht 
+		Eine ErgÃ¤nzung in Java 9 ist die Methode or(), die ebenfalls einen Supplier erwartet. Die RÃ¼ckgabe besteht 
 		jedoch wiederum in einem Optional. 
 		 * 
 		 * */
@@ -89,8 +96,8 @@ public class OptionalDemo {
 		
 		
 		/**
-		 * Eine weitere Möglichkeit des Umgangs mit einem ggf. leeren Optional-Objekt bietet die Methode 
-		 * ifPresent() (nicht isPresent!), die ein Consumer-Interface als Parameter erwartet und dies ausführt 
+		 * Eine weitere MÃ¶glichkeit des Umgangs mit einem ggf. leeren Optional-Objekt bietet die Methode 
+		 * ifPresent() (nicht isPresent!), die ein Consumer-Interface als Parameter erwartet und dies ausfÃ¼hrt 
 		 * falls das Optional nicht leer ist. Im anderen Fall geschieht nichts. 
 		 * 
 		 * 
@@ -100,7 +107,7 @@ public class OptionalDemo {
 		onb.ifPresent(cons);    // keine Ausgabe ---> ifPresent == true, exec the consumer function
 		
 		/**
-		 * Seit Java 9 kann für den Fall eines leeren Optional auch eine Alternative erzeugt werden. 
+		 * Seit Java 9 kann fÃ¼r den Fall eines leeren Optional auch eine Alternative erzeugt werden. 
 		 * Die Methode ifPresentOrElse() erwartet zwei Interfaces als Parameter: einen Consumer und ein Runnable.
 		 * 
 		 * */
@@ -108,9 +115,9 @@ public class OptionalDemo {
 		onb.ifPresentOrElse(cons,getWarning()); //since ifPresent is false --> exec runnable, in this case print once "Warning!"
 		
 		/**
-		 * Die Eigenschaften eines Optional-Objektes lassen sich mit der Methode filter() prüfen. Es erwartet ein 
+		 * Die Eigenschaften eines Optional-Objektes lassen sich mit der Methode filter() prÃ¼fen. Es erwartet ein 
 		 * Predicate Functional Interface als Parameter und liefert seinerseits wiederum ein Optional, welches 
-		 * entweder dem Wert des Predicate entspricht oder leer ist. Mit isPresent() kann dies dann nachgeprüft werden. 
+		 * entweder dem Wert des Predicate entspricht oder leer ist. Mit isPresent() kann dies dann nachgeprÃ¼ft werden. 
 		 * 
 		 * */
 		
@@ -119,7 +126,7 @@ public class OptionalDemo {
 		
 		/**
 		 * 
-		 * Möchte man den Wert eines Optional bearbeiten, so können dazu die Methoden map() und flatMap() verwendet werden. 
+		 * MÃ¶chte man den Wert eines Optional bearbeiten, so kÃ¶nnen dazu die Methoden map() und flatMap() verwendet werden. 
 		 * 
 		 * */
 		String stringOfOptionalModified = os.map(String::toUpperCase).orElse("String leer");
